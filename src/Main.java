@@ -33,8 +33,8 @@ public class Main {
         }
         System.out.println("Contraseña aceptada.");
     }
-
-    public static int checkLength(String password) {
+    
+    public static int getLength(String password) {
         int length = password.length();
         int score = 0;
         if (length >= 9 && length <= 12) {
@@ -46,30 +46,29 @@ public class Main {
         return score;
     }
 
-    public static boolean checkChar(char password) {
-        int score = 0;
+    public static boolean checkIfLetter(char password) {
         if (Character.isLetter(password)) {
             return true;
         }else{
             return false;
         }
     }
-    public static boolean checkLower(char password) {
-        if (Character.isLowerCase(password)) {
+    public static boolean checkIfLower(char charPass) {
+        if (Character.isLowerCase(charPass)) {
             return true;
         }else{
             return false;
         }
     }
-    public static boolean checkUpper(char password) {
-        if (Character.isUpperCase(password)) {
+    public static boolean checkIfUpper(char charPass) {
+        if (Character.isUpperCase(charPass)) {
             return true;
         }else{
             return false;
         }
     }
-    public static boolean checkDigit(char password) {
-        if (Character.isDigit(password)) {
+    public static boolean checkIfDigit(char charPass) {
+        if (Character.isDigit(charPass)) {
             return true;
         }else{
             return false;
@@ -78,27 +77,27 @@ public class Main {
     public static int calculateStrength(String password) {
         int score = 0;
         boolean hasLetter = false, hasLowerCase = false, hasUpperCase = false, hasDigit = false, hasSymbols = false;
-        char[] ch = password.toCharArray();
+        char[] passwordToChars = password.toCharArray();
 
-        score += checkLength(password);
-        for(int i = 0; i < ch.length; i++){
+        score += getLength(password);
+        for(int i = 0; i < passwordToChars.length; i++){
             
             //Checking letter points
-            if(checkChar(ch[i])) {
+            if(checkIfLetter(passwordToChars[i])) {
                 if (!hasLetter) {
                     hasLetter = true;
                     score += 1;
 
                 }
 
-                if (!hasLowerCase && checkLower(ch[i])) {
+                if (!hasLowerCase && checkIfLower(passwordToChars[i])) {
                     hasLowerCase = true;
                     if(hasUpperCase){
                         score += 2;
                     }
                 }
 
-                if (!hasUpperCase && checkUpper(ch[i])) {
+                if (!hasUpperCase && checkIfUpper(passwordToChars[i])) {
                     hasUpperCase = true;
                     if(hasLowerCase){
                         score += 2;
@@ -108,7 +107,7 @@ public class Main {
 
             }
             //Checking digit 
-            else if (checkDigit(ch[i]) && !hasDigit) {
+            else if (checkIfDigit(passwordToChars[i]) && !hasDigit) {
                 hasDigit = true;
                 score += 1;
             }else if(!hasSymbols){
